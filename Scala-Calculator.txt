@@ -22,11 +22,16 @@ object Calculator {
           val rem = secondNumber%firstNumber
           println(rem)
         }
+        def mean(firstNumber:Int,secondNumber:Int){
+          val avg = (secondNumber+firstNumber)/2;
+          println(avg)
+        }
         addition(10,10)
      		subtraction(20,25)
      		multiplication(2,30)
      		division(2,20)
      		remainder(26,3)
+         mean(10,2)
    }
 }
 
