@@ -1,0 +1,32 @@
+object Calculator {
+   def main(args: Array[String]) {
+        
+        def addition(firstNumber:Int,secondNumber:Int)={
+          val result = firstNumber+secondNumber;
+          println(result);
+        }
+     		def subtraction(firstNumber: Int,secondNumber:Int)={
+          val sub = secondNumber - firstNumber
+          println(sub)
+        }
+     		def multiplication(firstNumber: Int,secondNumber:Int)={
+          val multiply = secondNumber*firstNumber
+          println(multiply)
+        }
+     		def division(firstNumber:Int,secondNumber:Int){
+          val div = secondNumber / firstNumber
+          println(div)
+        }
+     
+     		def remainder(firstNumber:Int,secondNumber:Int){
+          val rem = secondNumber%firstNumber
+          println(rem)
+        }
+        addition(10,10)
+     		subtraction(20,25)
+     		multiplication(2,30)
+     		division(2,20)
+     		remainder(26,3)
+   }
+}
+
