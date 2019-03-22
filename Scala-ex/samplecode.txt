@@ -1,0 +1,736 @@
+package com.clientname.application.services.actor.data
+
+import akka.actor.Actor
+import com.capgemini.accelesense.common.exception.{BusinessFailure, Failures}
+import com.capgemini.dao.cassandra.ClusterFactory
+import com.clientname.application.api._
+import com.clientname.application.services.ResponseVO.RiserLengthRes
+import com.clientname.application.utility.{CommonFunctions, Constants}
+import com.typesafe.config.ConfigFactory
+import play.api.libs.json._
+
+import scala.collection.mutable.{HashMap, ListBuffer}
+import scala.util.{Failure, Success, Try}
+
+class GraphDataActor extends Actor with ClusterFactory {
+
+  lazy val config1          = ConfigFactory.load().getConfig("elasticSearch")
+  lazy val elasticIndex     = config1.getString("index")
+  lazy val elasticType      = config1.getString("type")
+  lazy val indexpath        = s"${elasticIndex}/${elasticType}/_search"
+  lazy val metaIndex        = config1.getString("metaindex")
+  lazy val metaType         = config1.getString("metatype")
+  lazy val metaindexpath    = s"${metaIndex}/${metaType}/_search"
+
+
+  def receive = {
+
+    case "test" =>{
+    }
+
+    case "test1" =>{
+
+    }
+    //------------------ CASSANDRA APIS---------------------------------//
+
+    case BendingMomentTensionByTtfTilt(riserTension) => {
+
+      val handle = Try {
+
+        val query: String = "SELECT RISER_LENGTH, TTF, TILT, MAGNITUDE, DIRECTION, BENDING_MOMENT,TENSION,LOCATION " +
+          s" FROM riser_view where CLIENT ='${riserTension.client}' AND PLATFORM= '${riserTension.platform}'" +
+          s" AND SYSTEM ='${riserTension.system}' AND DEVICE= '${riserTension.device}'" +
+          s" AND VERSION ='${riserTension.version}' AND CONTAINER= '${riserTension.container}'" +
+          s" AND RISER_LENGTH ='${riserTension.riser_length}' AND SUBLOCATION= '${riserTension.sublocation}'" +
+          s" AND TTF ='${riserTension.ttf}' AND TILT= '${riserTension.tilt}'"
+
+        risermovement_session.execute(query).all()
+
+      }
+      handle match{
+        case Success(_)=> sender() ! handle.get
+        case Failure(e) => {
+          val f = Failures(Option("411"), Option("Method Not Allowed"))
+          throw BusinessFailure(Option(List(f)))
+        }
+      }
+    }
+
+    case TensionBendingMomentByTtfTiltMagDir(multiRiserReq) => {
+      val handle = Try {
+
+        val containers    =  new ListBuffer[String]
+        val locations     =  new ListBuffer[String]
+        val sublocations  =  new ListBuffer[String]
+
+        multiRiserReq.containers.foreach(container => {
+          containers.append("\'"+container.container+"\'")
+          locations.append("\'"+container.riser_length+"\'")
+          sublocations.append("\'"+container.sublocation+"\'")
+        })
+
+        val query: String = "SELECT CONTAINER, LOCATION, SUBLOCATION, RISER_LENGTH, TTF, TILT, MAGNITUDE, DIRECTION, BENDING_MOMENT,TENSION,LOCATION " +
+          s" FROM riser_view where CLIENT ='${multiRiserReq.client}' AND PLATFORM= '${multiRiserReq.platform}'" +
+          s" AND SYSTEM ='${multiRiserReq.system}' AND DEVICE= '${multiRiserReq.device}'" +
+          s" AND VERSION ='${multiRiserReq.version}' AND CONTAINER in (${containers.mkString(",")}) " +
+          s" AND RISER_LENGTH in (${locations.mkString(",")}) AND SUBLOCATION in (${sublocations.mkString(",")}) " +
+          s" AND TTF ='${multiRiserReq.ttf}' AND TILT= '${multiRiserReq.tilt}'" +
+          s" AND MAGNITUDE ='${multiRiserReq.magnitude}' AND DIRECTION= '${multiRiserReq.direction}'"
+
+        risermovement_session.execute(query).all()
+
+      }
+      handle match{
+        case Success(_)=> sender() ! handle.get
+        case Failure(e) => {
+          val f = Failures(Option("411"), Option("Method Not Allowed"))
+          throw BusinessFailure(Option(List(f)))
+        }
+      }
+    }
+
+    //------------------ ELASTIC APIS---------------------------------//
+
+    //1ST SCREEN
+    case BendingMomentTensionByTtfTiltElastic(riserTension) => {
+
+      val handle = Try {
+
+        val gdBuff =  new ListBuffer[HashMap[String,Any]]
+
+        var lengthval = "length_subloc"
+        var lengthkey = "0"
+
+        if(riserTension.riser_length.get!=null && riserTension.riser_length.get.trim.length>0){
+          lengthval = CommonFunctions.convertToElasticFormat(riserTension.riser_length.get,Constants.DataType.RISERLENGTH)
+          lengthkey = "length_subloc"
+        }else{
+          lengthval = CommonFunctions.convertToElasticFormat(riserTension.location.get,Constants.DataType.LOCATION)
+          lengthkey = "loc_subloc"
+        }
+
+        val query =
+          s"""{"from":0,"size":10000,"_source":["riser_name","riser_length","sublocation"],
+             |"query":{"bool":{"must":[{"match":{"riser_name":"${riserTension.container}"}},
+             |{"geo_shape":{"${lengthkey}":{"shape":{"type":"point","coordinates":[${lengthval},${CommonFunctions.convertSublocation(riserTension.sublocation)}]}}}},
+             |{"nested":{"path":"readings","query":{"bool":{"must":{"geo_shape":{"readings.ttf_tilt":
+             |{"shape":{"type":"point","coordinates":[${riserTension.ttf.get},${riserTension.tilt.get}]}}}}}},"inner_hits":{"_source":
+             |["readings.ttf","readings.tilt","readings.magnitude","readings.direction","readings.bending_moment","readings.tension"]}}}]}}}""".stripMargin
+
+        //print("query :: "+query)
+
+        val jsonString =  CommonFunctions.fetchFromElastic(query,indexpath)
+
+        //print("jsonString :: "+jsonString)
+
+        val json = Json.parse(jsonString)
+
+        if(!(json \ "hits" \ "hits" ).isEmpty){
+
+          val hit_s = (json \ "hits" \ "hits" ).get.as[JsArray].value.map(hits => {
+
+            val tempid = (hits \ "_id").get.as[JsString].value.toString.split("-")
+
+            val ID = "x" //tempid(0)+"-"+tempid(1)+"-"+tempid(2)+"-"+tempid(3)
+
+            val inner_hits = (hits \ "inner_hits" \ "readings" \ "hits" \ "hits").get.as[JsArray].value.map(innerhits => {
+
+              val BENDING_MOMENT = (innerhits \ "_source" \ "bending_moment").get.as[JsNumber].value.toDouble
+              val TENSION        = (innerhits \ "_source" \ "tension")       .get.as[JsNumber].value.toDouble
+              val DIRECTION      = (innerhits \ "_source" \ "direction")     .get.as[JsNumber].value.toString
+              val MAGNITUDE      = (innerhits \ "_source" \ "magnitude")     .get.as[JsNumber].value.toString
+
+              gdBuff.append(
+                HashMap(
+                  ("ID",ID),
+                  ("BENDING_MOMENT",BENDING_MOMENT),
+                  ("TENSION",TENSION),
+                  ("DIRECTION",CommonFunctions.convertFromElasticFormat(DIRECTION,Constants.DataType.DIRECTION)),
+                  ("MAGNITUDE",CommonFunctions.convertFromElasticFormat(MAGNITUDE,Constants.DataType.MAGNITUDE))))
+              ""
+            })
+          })
+
+        }
+
+        gdBuff.toList
+      }
+      handle match{
+        case Success(_)=> sender() ! handle.get
+        case Failure(e) => {
+          e.printStackTrace()
+          val f = Failures(Option("411"), Option("Method Not Allowed"))
+          throw BusinessFailure(Option(List(f)))
+        }
+      }
+    }
+
+    //2ND SCREEN
+    /*case TensionBendingMomentByTtfTiltMagDirElastic(multiRiserReq) => {
+      val handle = Try {
+
+        val gdBuff        =  new ListBuffer[HashMap[String,Any]]
+
+        val dir = Try(multiRiserReq.direction.get.toInt).getOrElse(0)
+
+
+        multiRiserReq.containers.zipWithIndex.foreach { case (value, index) => {
+
+          var query = s"""{"from":0,"size":10000,"_source":["riser_name","riser_length"],"query":{"bool":{"must":[{"bool":{"minimum_should_match":1,"should":[ """
+          query += s""" {"match":{"riser_name":"${value.container}"}} """
+          query +=
+            s""" ]}},{"geo_shape":{"length_subloc":{"shape":{"type":"point","coordinates":[${CommonFunctions.convertToElasticFormat(value.riser_length, Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(value.sublocation)}]}}}},
+               |{"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.dir_mag":
+               |{"shape":{"type":"point","coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserReq.magnitude.get, Constants.DataType.MAGNITUDE)},
+               |${CommonFunctions.convertToElasticFormat(dir.toString, Constants.DataType.DIRECTION)}]}}}},{"geo_shape":{"readings.ttf_tilt":{"shape":
+               |{"type":"point","coordinates":[${multiRiserReq.ttf.get},${multiRiserReq.tilt.get}]}}}}]}},"inner_hits":{"_source":["readings.ttf","readings.tilt",
+               |"readings.magnitude","readings.direction","readings.bending_moment","readings.tension"]}}}]}}}""".stripMargin
+
+          val jsonString = CommonFunctions.fetchFromElastic(query, indexpath)
+
+          val json = Json.parse(jsonString)
+
+          println(query)
+
+          //print("jsonString :: "+jsonString)
+
+          if (!(json \ "hits" \ "hits").isEmpty) {
+
+            val hit_s = (json \ "hits" \ "hits").get.as[JsArray].value.map(hits => {
+
+              val RISER_NAME    = (hits \ "_source" \ "riser_name")   .get.as[JsString].value.toString
+              val RISER_LENGTH  = (hits \ "_source" \ "riser_length") .get.as[JsNumber].value.toString
+
+              val inner_hits = (hits \ "inner_hits" \ "readings" \ "hits" \ "hits").get.as[JsArray].value.map(innerhits => {
+
+                val BENDING_MOMENT = (innerhits \ "_source" \ "bending_moment").get.as[JsNumber].value.toDouble
+                val TENSION = (innerhits \ "_source" \ "tension").get.as[JsNumber].value.toDouble
+                val DIRECTION = (innerhits \ "_source" \ "direction").get.as[JsNumber].value.toString
+                val MAGNITUDE = (innerhits \ "_source" \ "magnitude").get.as[JsNumber].value.toString
+
+                // print("\n\nBENDING_MOMENT ::: "+BENDING_MOMENT)
+
+                gdBuff.append(
+                  HashMap(
+                    ("RISER_NAME", RISER_NAME),
+                    ("RISER_LENGTH", RISER_LENGTH),
+                    ("BENDING_MOMENT", BENDING_MOMENT),
+                    ("TENSION", TENSION),
+                    ("DIRECTION", CommonFunctions.convertFromElasticFormat(DIRECTION, Constants.DataType.DIRECTION)),
+                    ("MAGNITUDE", CommonFunctions.convertFromElasticFormat(MAGNITUDE, Constants.DataType.MAGNITUDE))
+                  )
+                )
+                ""
+              })
+            })
+
+          }
+        }
+
+        }
+
+        gdBuff.toList
+      }
+      handle match{
+        case Success(_)=> sender() ! handle.get
+        case Failure(e) => {
+          e.printStackTrace()
+          val f = Failures(Option("411"), Option("Method Not Allowed"))
+          throw BusinessFailure(Option(List(f)))
+        }
+      }
+    }*/
+
+    //2ND SCREEN
+    case TensionBendingMomentByTtfTiltMagDirElastic(multiRiserRangeReq) => {
+
+      val handle = Try {
+
+        val gdBuff =  new ListBuffer[HashMap[String,Any]]
+
+
+        /* var query = s"""{"_source":["riser_name","length_subloc","riser_length"],"from":0,"query":{"constant_score":{"filter":{"bool":{"must":[{"nested":{"inner_hits":{"_source":["readings.ttf","readings.tilt","readings.magnitude","readings.direction","readings.bending_moment","readings.tension","readings.operational_param"]},
+                       | "path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.ttf_tilt":{"shape":{"coordinates":[${multiRiserRangeReq.ttf.get},${multiRiserRangeReq.tilt.get}],"type":"point"}}}},
+                       | {"geo_shape":{"readings.dir_mag":{"shape":{"coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.magnitude.get,Constants.DataType.MAGNITUDE)},${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.direction.get,Constants.DataType.DIRECTION)}],"type":"point"}}}}]}}}},{"bool":{"should":[""".stripMargin
+
+         multiRiserRangeReq.containers.zipWithIndex.foreach { case (value, index) => {
+           if (index == 0)
+             query += s""" {"match":{"riser_name":"${value}"}} """
+           else
+             query += s""", {"match":{"riser_name":"${value}"}} """
+         }
+         }
+
+         query += s"""]}},{"geo_shape":{"length_subloc":{"shape":{"coordinates":[[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.riser_length.start,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeReq.sublocation)}],[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.riser_length.end,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeReq.sublocation)}]],"type":"linestring"}}}}]}}}},"size":25000}"""
+ */
+
+
+        var query = s""" {"from":0,"size":10000,"_source":["riser_name","riser_length","sublocation"],"query":{"bool":{"must":[{"bool":{"minimum_should_match":1, "should":[ """
+
+        multiRiserRangeReq.containers.zipWithIndex.foreach { case (value, index) => {
+          if (index == 0)
+            query += s""" {"match":{"riser_name":"${value}"}} """
+          else
+            query += s""", {"match":{"riser_name":"${value}"}} """
+        }
+        }
+        query +=  s""" ]}}, {"geo_shape":{"length_subloc":{"shape":{"type":"envelope","coordinates":[[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.riser_length.start,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeReq.sublocation)}],[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.riser_length.end,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeReq.sublocation)}]]}}}}, """+
+          s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.ttf_tilt":{"shape":{"type":"point","coordinates":[${multiRiserRangeReq.ttf.get},${multiRiserRangeReq.tilt.get}]}}}}, """+
+          s""" {"geo_shape":{"readings.dir_mag":{"shape":{"type":"point","coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.magnitude.get,Constants.DataType.MAGNITUDE)},${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.direction.get,Constants.DataType.DIRECTION)}]}}}}]}}, """+
+          s""" "inner_hits":{"_source":["readings.ttf","readings.tilt","readings.magnitude","readings.direction","readings.bending_moment","readings.tension","readings.operational_param"]}}}]}}} """
+
+        print("query => "+query)
+
+        val jsonString = CommonFunctions.fetchFromElastic(query,indexpath)
+
+        print("jsonString => "+jsonString)
+
+        val json = Json.parse(jsonString)
+
+        if(!(json \ "hits" \ "hits" ).isEmpty) {
+
+          val hit_s = (json \ "hits" \ "hits").get.as[JsArray].value.map(hits => {
+
+            val RISER_NAME = (hits \ "_source" \ "riser_name").get.as[JsString].value.toString
+
+            val RISER_LENGTH     = (hits \ "_source" \ "riser_length").get.as[JsNumber].value.toString
+
+            val inner_hits = (hits \ "inner_hits" \ "readings" \ "hits" \ "hits").get.as[JsArray].value.map(innerhits => {
+
+              val BENDING_MOMENT = (innerhits \ "_source" \ "bending_moment").get.as[JsNumber].value.toDouble
+              val TENSION = (innerhits \ "_source" \ "tension").get.as[JsNumber].value.toDouble
+              val DIRECTION = (innerhits \ "_source" \ "direction").get.as[JsNumber].value.toString
+              val MAGNITUDE = (innerhits \ "_source" \ "magnitude").get.as[JsNumber].value.toString
+
+              gdBuff.append(
+                HashMap(
+                  ("RISER_NAME", RISER_NAME),
+                  ("RISER_LENGTH",CommonFunctions.convertFromElasticFormat(RISER_LENGTH,Constants.DataType.RISERLENGTH)),
+                  ("BENDING_MOMENT", BENDING_MOMENT),
+                  ("TENSION", TENSION),
+                  ("DIRECTION",CommonFunctions.convertFromElasticFormat(DIRECTION,Constants.DataType.DIRECTION)),
+                  ("MAGNITUDE",CommonFunctions.convertFromElasticFormat(MAGNITUDE,Constants.DataType.MAGNITUDE))))
+              ""
+            })
+          })
+        }
+        gdBuff.toList
+      }
+      handle match{
+        case Success(_)=> sender() ! handle.get
+        case Failure(e) => {
+          e.printStackTrace()
+          val f = Failures(Option("411"), Option("Method Not Allowed"))
+          throw BusinessFailure(Option(List(f)))
+        }
+      }
+
+    }
+
+    //3RD SCREEN
+    case TensionBendingMomentForMultiRiser(multiRiserRangeReq) => {
+
+      val handle = Try {
+
+        val gdBuff =  new ListBuffer[HashMap[String,Any]]
+
+
+        var query = s"""{"_source":["riser_name","length_subloc","riser_length"],"from":0,"query":{"constant_score":{"filter":{"bool":{"must":[{"nested":{"inner_hits":{"_source":["readings.ttf","readings.tilt","readings.magnitude","readings.direction","readings.bending_moment","readings.tension","readings.operational_param"]},
+                       | "path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.ttf_tilt":{"shape":{"coordinates":[${multiRiserRangeReq.ttf.get},${multiRiserRangeReq.tilt.get}],"type":"point"}}}},
+                       | {"geo_shape":{"readings.dir_mag":{"shape":{"coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.magnitude.get,Constants.DataType.MAGNITUDE)},${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.direction.get,Constants.DataType.DIRECTION)}],"type":"point"}}}}]}}}},{"bool":{"should":[""".stripMargin
+
+         multiRiserRangeReq.containers.zipWithIndex.foreach { case (value, index) => {
+           if (index == 0)
+             query += s""" {"match":{"riser_name":"${value}"}} """
+           else
+             query += s""", {"match":{"riser_name":"${value}"}} """
+         }
+         }
+
+         query += s"""]}},{"geo_shape":{"length_subloc":{"shape":{"coordinates":[[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.riser_length.start,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeReq.sublocation)}],[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.riser_length.end,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeReq.sublocation)}]],"type":"linestring"}}}}]}}}},"size":25000}"""
+
+
+       /* var query = s""" {"from":0,"size":10000,"_source":["riser_name","riser_length","sublocation"],"query":{"bool":{"must":[{"bool":{"minimum_should_match":1, "should":[ """
+
+        multiRiserRangeReq.containers.zipWithIndex.foreach { case (value, index) => {
+          if (index == 0)
+            query += s""" {"match":{"riser_name":"${value}"}} """
+          else
+            query += s""", {"match":{"riser_name":"${value}"}} """
+        }
+        }
+        query +=  s""" ]}}, {"geo_shape":{"length_subloc":{"shape":{"type":"envelope","coordinates":[[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.riser_length.start,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeReq.sublocation)}],[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.riser_length.end,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeReq.sublocation)}]]}}}}, """+
+          s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.ttf_tilt":{"shape":{"type":"point","coordinates":[${multiRiserRangeReq.ttf.get},${multiRiserRangeReq.tilt.get}]}}}}, """+
+          s""" {"geo_shape":{"readings.dir_mag":{"shape":{"type":"point","coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.direction.get,Constants.DataType.DIRECTION)},${CommonFunctions.convertToElasticFormat(multiRiserRangeReq.magnitude.get,Constants.DataType.MAGNITUDE)}]}}}}]}}, """+
+          s""" "inner_hits":{"_source":["readings.ttf","readings.tilt","readings.magnitude","readings.direction","readings.bending_moment","readings.tension","readings.operational_param"]}}}]}}} """
+*/
+        //print("query => "+query)
+
+        val jsonString = CommonFunctions.fetchFromElastic(query,indexpath)
+
+        //print("jsonString => "+jsonString)
+
+        val json = Json.parse(jsonString)
+
+        if(!(json \ "hits" \ "hits" ).isEmpty) {
+
+          val hit_s = (json \ "hits" \ "hits").get.as[JsArray].value.map(hits => {
+
+            val RISER_NAME = (hits \ "_source" \ "riser_name").get.as[JsString].value.toString
+
+            val RISER_LENGTH     = (hits \ "_source" \ "riser_length").get.as[JsNumber].value.toString
+
+            val inner_hits = (hits \ "inner_hits" \ "readings" \ "hits" \ "hits").get.as[JsArray].value.map(innerhits => {
+
+              val BENDING_MOMENT = (innerhits \ "_source" \ "bending_moment").get.as[JsNumber].value.toDouble
+              val TENSION = (innerhits \ "_source" \ "tension").get.as[JsNumber].value.toDouble
+              val DIRECTION = (innerhits \ "_source" \ "direction").get.as[JsNumber].value.toString
+              val MAGNITUDE = (innerhits \ "_source" \ "magnitude").get.as[JsNumber].value.toString
+
+              gdBuff.append(
+                HashMap(
+                  ("RISER_NAME", RISER_NAME),
+                  ("RISER_LENGTH",CommonFunctions.convertFromElasticFormat(RISER_LENGTH,Constants.DataType.RISERLENGTH)),
+                  ("BENDING_MOMENT", BENDING_MOMENT),
+                  ("TENSION", TENSION),
+                  ("DIRECTION",CommonFunctions.convertFromElasticFormat(DIRECTION,Constants.DataType.DIRECTION)),
+                  ("MAGNITUDE",CommonFunctions.convertFromElasticFormat(MAGNITUDE,Constants.DataType.MAGNITUDE))))
+              ""
+            })
+          })
+        }
+        gdBuff.toList
+      }
+      handle match{
+        case Success(_)=> sender() ! handle.get
+        case Failure(e) => {
+          e.printStackTrace()
+          val f = Failures(Option("411"), Option("Method Not Allowed"))
+          throw BusinessFailure(Option(List(f)))
+        }
+      }
+
+    }
+
+
+
+    //4TH SCREEN
+    case TensionBendingMomentForMultiRiserByParam(multiRiserRangeNodeReq) => {
+
+      val handle = Try {
+
+        /*var query =
+          s""" {"from":0,"size":10000,"_source":["riser_name","riser_length","sublocation"],"query":{"bool":{"must":[{"geo_shape":{"length_subloc": """+
+            s""" {"shape":{"type":"envelope","coordinates":[[${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.riser_length.start,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeNodeReq.sublocation)}],[${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.riser_length.end,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeNodeReq.sublocation)}]]}}}}, """+
+            s""" {"match":{"riser_name":"${multiRiserRangeNodeReq.containers(0)}"}}, """
+
+        val fetchNode = multiRiserRangeNodeReq.fetchnode.get
+
+        fetchNode match {
+
+          case "ttf" => {
+            query += s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.dir_mag":{"shape": """+
+              s""" {"type":"point","coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.direction.get,Constants.DataType.DIRECTION)},${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.magnitude.get,Constants.DataType.MAGNITUDE)}]}}}}, """+
+              s""" {"match":{"readings.tilt":${multiRiserRangeNodeReq.tilt.get}}}]}}, """
+          }
+          case "tilt" => {
+            query += s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.dir_mag":{"shape": """+
+              s""" {"type":"point","coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.direction.get,Constants.DataType.DIRECTION)},${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.magnitude.get,Constants.DataType.MAGNITUDE)}]}}}}, """+
+              s""" {"match":{"readings.ttf":${multiRiserRangeNodeReq.ttf.get}}}]}}, """
+          }
+          case "magnitude" => {
+            query += s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.ttf_tilt":{"shape": """+
+              s""" {"type":"point","coordinates":[${multiRiserRangeNodeReq.ttf.get},${multiRiserRangeNodeReq.tilt.get}]}}}}, """+
+              s""" {"match":{"readings.direction":${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.direction.get,Constants.DataType.DIRECTION)}}}]}}, """
+          }
+          case "direction" => {
+            query += s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.ttf_tilt":{"shape": """+
+              s""" {"type":"point","coordinates":[${multiRiserRangeNodeReq.ttf.get},${multiRiserRangeNodeReq.tilt.get}]}}}}, """+
+              s""" {"match":{"readings.magnitude":${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.magnitude.get,Constants.DataType.MAGNITUDE)}}}]}}, """
+          }
+          case _ => {
+            query += s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.dir_mag":{"shape": """+
+              s""" {"type":"point","coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.direction.get,Constants.DataType.DIRECTION)},${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.magnitude.get,Constants.DataType.MAGNITUDE)}]}}}}, """+
+              s""" {"match":{"readings.tilt":${multiRiserRangeNodeReq.tilt.get}}}]}}, """
+          }
+        }
+
+        query += s""" "inner_hits":{"_source":["readings.ttf","readings.tilt","readings.magnitude","readings.direction","readings.bending_moment","readings.tension","readings.ttf_tilt","readings.dir_mag"]}}}]}}} """
+*/
+
+        var query = s""" {"from":0,"size":15000,"_source":["riser_name","length_subloc","riser_length"],"query":{"bool":{"must":[ """
+
+        multiRiserRangeNodeReq.fetchnode.get match {
+
+          case "ttf" => {
+            query += s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.dir_mag":{"shape": """+
+              s""" {"type":"point","coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.direction.get,Constants.DataType.DIRECTION)},${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.magnitude.get,Constants.DataType.MAGNITUDE)}]}}}}, """+
+              s""" {"match":{"readings.tilt":${multiRiserRangeNodeReq.tilt.get}}}]}}, """
+          }
+          case "tilt" => {
+            query += s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.dir_mag":{"shape": """+
+              s""" {"type":"point","coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.direction.get,Constants.DataType.DIRECTION)},${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.magnitude.get,Constants.DataType.MAGNITUDE)}]}}}}, """+
+              s""" {"match":{"readings.ttf":${multiRiserRangeNodeReq.ttf.get}}}]}}, """
+          }
+          case "magnitude" => {
+            query += s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.ttf_tilt":{"shape": """+
+              s""" {"type":"point","coordinates":[${multiRiserRangeNodeReq.ttf.get},${multiRiserRangeNodeReq.tilt.get}]}}}}, """+
+              s""" {"match":{"readings.direction":${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.direction.get,Constants.DataType.DIRECTION)}}}]}}, """
+          }
+          case "direction" => {
+            query += s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.ttf_tilt":{"shape": """+
+              s""" {"type":"point","coordinates":[${multiRiserRangeNodeReq.ttf.get},${multiRiserRangeNodeReq.tilt.get}]}}}}, """+
+              s""" {"match":{"readings.magnitude":${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.magnitude.get,Constants.DataType.MAGNITUDE)}}}]}}, """
+          }
+          case _ => {
+            query += s""" {"nested":{"path":"readings","query":{"bool":{"must":[{"geo_shape":{"readings.dir_mag":{"shape": """+
+              s""" {"type":"point","coordinates":[${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.direction.get,Constants.DataType.DIRECTION)},${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.magnitude.get,Constants.DataType.MAGNITUDE)}]}}}}, """+
+              s""" {"match":{"readings.tilt":${multiRiserRangeNodeReq.tilt.get}}}]}}, """
+          }
+        }
+
+        query += s""""inner_hits":{"_source":["readings.ttf","readings.tilt","readings.magnitude","readings.direction","readings.bending_moment","readings.tension","readings.ttf_tilt"]}}},
+             |{"geo_shape":{"length_subloc":{"shape":{"type":"envelope","coordinates":[[${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.riser_length.start,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeNodeReq.sublocation)}],
+             |[${CommonFunctions.convertToElasticFormat(multiRiserRangeNodeReq.riser_length.end,Constants.DataType.RISERLENGTH)},${CommonFunctions.convertSublocation(multiRiserRangeNodeReq.sublocation)}]]}}}},{"bool":{"must":{"match":{"riser_name":"${multiRiserRangeNodeReq.containers(0)}"}}}}]}}}""".stripMargin
+
+        //println(query)
+
+        val rdBuff    =  new ListBuffer[HashMap[String,Any]]
+        val jsonString = CommonFunctions.fetchFromElastic(query,indexpath)
+        val json = Json.parse(jsonString)
+
+        //print("\n\n"+jsonString)
+
+        if(!(json \ "hits" \ "hits" ).isEmpty){
+          val hit_s = (json \ "hits" \ "hits" ).get.as[JsArray].value.map( hits => {
+
+            val RISER_LENGTH     = (hits \ "_source" \ "riser_length").get.as[JsNumber].value.toString
+
+            val inner_hits = (hits \ "inner_hits" \ "readings" \ "hits" \ "hits").get.as[JsArray].value.map(innerhits => {
+
+              val BENDING_MOMENT = (innerhits \ "_source" \ "bending_moment") .get.as[JsNumber].value.toDouble
+              val TENSION        = (innerhits \ "_source" \ "tension")        .get.as[JsNumber].value.toDouble
+              val DIRECTION      = (innerhits \ "_source" \ "direction")      .get.as[JsNumber].value.toString
+              val MAGNITUDE      = (innerhits \ "_source" \ "magnitude")      .get.as[JsNumber].value.toString
+              val TTF            = (innerhits \ "_source" \ "ttf")            .get.as[JsNumber].value.toString
+              val TILT           = (innerhits \ "_source" \ "tilt")           .get.as[JsNumber].value.toString
+
+              //print("MAGNITUDE :: "+MAGNITUDE)
+
+              rdBuff.append(
+                HashMap(
+                  ("RISER_LENGTH",RISER_LENGTH),
+                  ("TTF",TTF),
+                  ("TILT",TILT),
+                  ("BENDING_MOMENT",BENDING_MOMENT),
+                  ("TENSION",TENSION),
+                  ("DIRECTION",CommonFunctions.convertFromElasticFormat(DIRECTION,Constants.DataType.DIRECTION)),
+                  ("MAGNITUDE",CommonFunctions.convertFromElasticFormat(MAGNITUDE,Constants.DataType.MAGNITUDE))))
+              ""
+            })
+          })
+        }
+
+
+        rdBuff.toList
+      }
+      handle match{
+        case Success(_)=> sender() ! handle.get
+        case Failure(e) => {
+          e.printStackTrace()
+          val f = Failures(Option("411"), Option("Method Not Allowed"))
+          throw BusinessFailure(Option(List(f)))
+        }
+      }
+    }
+
+    //METADATA
+    case MultiRiserMetadata(riserMetaDataReq) => {
+
+      val handle = Try {
+
+        val rdBuff    =  new ListBuffer[HashMap[String,Any]]
+
+        var query = """{"query":{ "constant_score" : { "filter" : { "bool":{"should":[ """
+
+        riserMetaDataReq.containers.zipWithIndex.foreach { case (value, index) => {
+
+          if (index == 0)
+            query += s""" {"match":{"_id":"${value.replace("TTR","")}"}} """
+          else
+            query += s""", {"match":{"_id":"${value.replace("TTR","")}"}} """
+          }
+        }
+
+        query+= s""" ]}}}}}"""
+
+        //println(query)
+
+        val jsonString = CommonFunctions.fetchFromElastic(query,metaindexpath)
+
+        val json = Json.parse(jsonString)
+
+        //print("\n\n"+jsonString)
+
+        if(!(json \ "hits" \ "hits" ).isEmpty){
+
+          val hit_s = (json \ "hits" \ "hits" ).get.as[JsArray].value.map( hits => {
+
+            val RISER_NAME     = (hits \ "_source" \ "riserdetails" \ 0 \ "name")
+                                                                 .get.as[JsString].value.toString
+            val TTF            = (hits \ "_source" \ "ttf")      .get.as[JsArray].value.toList.map(_.toString())
+            val DIRECTION      = (hits \ "_source" \ "dir")      .get.as[JsArray].value.toList.map(_.toString())
+            val TILT           = (hits \ "_source" \ "tilt")     .get.as[JsArray].value.toList.map(_.toString())
+            val MAGNITUDE      = (hits \ "_source" \ "mag")      .get.as[JsArray].value.toList.map(_.toString())
+
+            val rcrBuff    =  new ListBuffer[RiserLengthRes]
+
+            val LOCATION     = (hits \ "_source" \ "riserdetails" \ 0 \ "location_details").get.as[JsArray].value.map( xhits => {
+
+              val riser_length  = ( xhits \ "riser_length" )  .get.toString().replace("\"", "").trim
+              val location_id   = ( xhits \ "location_id" )   .get.toString().replace("\"", "").trim
+              val sub_location  = ( xhits \ "sub_location" )  .get.toString().replace("\"", "").trim
+              val set_name      = ( xhits \ "set_name" )      .get.toString().replace("\"", "").trim
+
+              rcrBuff.append(
+                RiserLengthRes(
+                  location_id,
+                  sub_location,
+                  set_name,
+                  riser_length
+                )
+              )
+            })
+
+            rdBuff.append(
+              HashMap(
+                ("RISER_NAME","TTR"+RISER_NAME.trim),
+                ("TTF",TTF),
+                ("TILT",TILT),
+                ("DIRECTION",DIRECTION),
+                ("MAGNITUDE",MAGNITUDE),
+                ("LOCATION",rcrBuff.toList)
+              )
+            )
+          })
+        }
+
+        rdBuff.toList
+      }
+      handle match{
+        case Success(_)=> sender() ! handle.get
+        case Failure(e) => {
+          e.printStackTrace()
+          val f = Failures(Option("411"), Option("Method Not Allowed"))
+          throw BusinessFailure(Option(List(f)))
+        }
+      }
+
+    }
+
+    case _ => println("Not Found")
+  }
+
+  /*def fetchFromElastic(data:String, path:String): String  ={
+
+    val httpActorSystem = ActorSystem("HttpActorSystem");
+    implicit val mat:Materializer = ActorMaterializer()
+    val postData:String = data
+
+    val responseFuture: Future[HttpResponse] =
+      Http(httpActorSystem).singleRequest(
+        HttpRequest(
+          HttpMethods.POST, s"http://${elasticHost}:${elasticPort}/${path}",
+          entity = HttpEntity(ContentTypes.`application/json`, postData.getBytes())
+        ).withHeaders(RawHeader("X-Access-Token", "access token"))
+      )
+
+    val result:HttpResponse = Await.result(responseFuture, elasticTimeoutInSec.duration).asInstanceOf[HttpResponse]
+    println("result;;;;;;;;;;; "+Unmarshal(result.entity))
+
+    result.status match {
+
+      case StatusCodes.OK =>{
+
+        val resp = Unmarshal(result.entity).to[String]
+
+        print("\n\nresult :: "+resp)
+
+        resp.onComplete {
+          case Success(value) => {
+            println("\n\n\nvalue=> "+value)
+            return value;
+          }
+          case Failure(e) => {
+            e.printStackTrace
+          }
+        }
+      }
+      case _ => {
+        return "ERROR0"
+      }
+    }
+    "ERROR1"
+  }*/
+
+  /*case "test" =>{
+
+          val q1 = "select * from allusers_p"
+          val data1 = dap_session.execute(q1).all()
+
+          data1.forEach(x => {
+
+            if(x.getBool("isactiveuser").toString.toLowerCase().equals("false")) {
+              println("")
+              print(x.getString("firstname") + ",")
+              print(x.getString("lastname") + ",")
+              print(x.getString("email") + ",")
+              print(x.getString("client") + ",")
+              print(x.getBool("isactiveuser").toString.toUpperCase())
+            }else{
+
+              val userid = x.getString("userid")
+
+              val q2 = s"select * from userroles_p where id='BMT' and userid='${userid}'"
+              val data2 = dap_session.execute(q2).all()
+
+              data2.forEach(y => {
+
+                val roleid = y.getString("roleid")
+                val q3 = s"select * from platformhierarchypermissions_p where id='BMT' and roleid='${roleid}'"
+                val data3 = dap_session.execute(q3).all()
+
+                if(data3.size()<1){
+                  println("")
+                  print(x.getString("firstname") + ",")
+                  print(x.getString("lastname") + ",")
+                  print(x.getString("email") + ",")
+                  print(x.getString("client") + ",")
+                  print(x.getBool("isactiveuser").toString.toUpperCase() + ",")
+                  print(roleid.replace("_"," "))
+                }
+                else {
+                  data3.forEach(z => {
+                    println("")
+                    print(x.getString("firstname") + ",")
+                    print(x.getString("lastname") + ",")
+                    print(x.getString("email") + ",")
+                    print(x.getString("client") + ",")
+                    print(x.getBool("isactiveuser").toString.toUpperCase() + ",")
+                    print(z.getString("client") + ",")
+                    print(z.getString("platform") + ",")
+                    print(z.getString("system"))
+                  })
+                }
+              })
+
+
+            }
+
+            })
+
+
+      }*/
+
+
+}

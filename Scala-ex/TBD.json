@@ -1,0 +1,2371 @@
+{
+    "Reservations": [
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-54-70-15-15.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-01-31T18:02:22.000Z", 
+                    "PublicIpAddress": "54.70.15.15", 
+                    "PrivateIpAddress": "172.31.38.122", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0744eb011a84fac97", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-38-122.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-1ab3a56d", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:be:da:49:24:84", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "", 
+                            "NetworkInterfaceId": "eni-0810c8b3fde485508", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-38-122.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.38.122", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "54.70.15.15", 
+                                        "PublicDnsName": "ec2-54-70-15-15.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "734677054079"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-38-122.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-04e93a27160cae37e", 
+                                "AttachTime": "2018-12-04T06:45:04.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.38.122", 
+                            "SubnetId": "subnet-1ab3a56d", 
+                            "Association": {
+                                "PublicIp": "54.70.15.15", 
+                                "PublicDnsName": "ec2-54-70-15-15.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "734677054079"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-0493b1431c6919cb1", 
+                                "AttachTime": "2018-12-04T06:45:05.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "Microservice-RiserApi", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-067bf7e6f99bbfd17", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-35-167-30-146.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-01-31T18:02:22.000Z", 
+                    "PublicIpAddress": "35.167.30.146", 
+                    "PrivateIpAddress": "172.31.39.74", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 1, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0e91a975475ba0f5f", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-39-74.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-1ab3a56d", 
+                    "InstanceType": "t2.small", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:6f:1f:53:16:04", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "", 
+                            "NetworkInterfaceId": "eni-06d91fe6b7d2c794a", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-39-74.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.39.74", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "35.167.30.146", 
+                                        "PublicDnsName": "ec2-35-167-30-146.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "734677054079"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-39-74.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-063b99af514f14222", 
+                                "AttachTime": "2018-12-06T05:33:04.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.39.74", 
+                            "SubnetId": "subnet-1ab3a56d", 
+                            "Association": {
+                                "PublicIp": "35.167.30.146", 
+                                "PublicDnsName": "ec2-35-167-30-146.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "734677054079"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-036ffe8a4ae77fdd3", 
+                                "AttachTime": "2018-12-06T05:33:05.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "Microservice-Lb", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-014d66471f98a5c34", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-54-189-17-13.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-02-21T09:12:04.000Z", 
+                    "PublicIpAddress": "54.189.17.13", 
+                    "PrivateIpAddress": "172.31.15.84", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0f3a0ad90c19d7297", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-15-84.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-c3406c9a", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "0a:6a:82:0a:d7:68", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "Primary network interface", 
+                            "NetworkInterfaceId": "eni-03a0b9c7ddb862de4", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-15-84.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.15.84", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "54.189.17.13", 
+                                        "PublicDnsName": "ec2-54-189-17-13.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-15-84.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-0913278093fee13a9", 
+                                "AttachTime": "2019-02-21T09:12:04.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.15.84", 
+                            "SubnetId": "subnet-c3406c9a", 
+                            "Association": {
+                                "PublicIp": "54.189.17.13", 
+                                "PublicDnsName": "ec2-54-189-17-13.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2c"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-09c2206b3f8c9c445", 
+                                "AttachTime": "2019-02-21T09:12:08.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-DeepUI", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-069059f313ff45281", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-34-218-53-198.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-01-31T18:02:22.000Z", 
+                    "PublicIpAddress": "34.218.53.198", 
+                    "PrivateIpAddress": "172.31.33.108", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0c66446142b5c9212", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-33-108.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-1ab3a56d", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:e1:8c:18:ee:72", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "", 
+                            "NetworkInterfaceId": "eni-0ebbd3cd269317847", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-33-108.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.33.108", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "34.218.53.198", 
+                                        "PublicDnsName": "ec2-34-218-53-198.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "734677054079"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-33-108.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-059d435313f1e2bcb", 
+                                "AttachTime": "2018-11-29T13:15:46.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.33.108", 
+                            "SubnetId": "subnet-1ab3a56d", 
+                            "Association": {
+                                "PublicIp": "34.218.53.198", 
+                                "PublicDnsName": "ec2-34-218-53-198.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "734677054079"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-081a580bea815074e", 
+                                "AttachTime": "2018-11-29T13:15:47.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-Monitoring", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-0c527f7f009fe0e2b", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-34-223-1-129.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-02-27T11:34:08.000Z", 
+                    "PublicIpAddress": "34.223.1.129", 
+                    "PrivateIpAddress": "172.31.2.76", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-03f285a1af51e1591", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-2-76.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-c3406c9a", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "0a:90:49:6b:3c:1e", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "Primary network interface", 
+                            "NetworkInterfaceId": "eni-00da05e8d12e6d96f", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-2-76.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.2.76", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "34.223.1.129", 
+                                        "PublicDnsName": "ec2-34-223-1-129.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-2-76.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-06419648fb43ccd1b", 
+                                "AttachTime": "2019-02-27T11:34:08.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.2.76", 
+                            "SubnetId": "subnet-c3406c9a", 
+                            "Association": {
+                                "PublicIp": "34.223.1.129", 
+                                "PublicDnsName": "ec2-34-223-1-129.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2c"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-03881c3a05ed79c5d", 
+                                "AttachTime": "2019-02-27T11:34:08.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-DeepSysStatus", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-01d536744712c8394", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-18-237-136-192.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-02-11T08:45:23.000Z", 
+                    "PublicIpAddress": "18.237.136.192", 
+                    "PrivateIpAddress": "172.31.13.23", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0856535c2f1a58cd0", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-13-23.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-c3406c9a", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "0a:4d:06:94:94:7c", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "Primary network interface", 
+                            "NetworkInterfaceId": "eni-06a86e2262d3d2b0a", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-13-23.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.13.23", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "18.237.136.192", 
+                                        "PublicDnsName": "ec2-18-237-136-192.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-13-23.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-062cc657fa717781b", 
+                                "AttachTime": "2019-02-11T08:45:23.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.13.23", 
+                            "SubnetId": "subnet-c3406c9a", 
+                            "Association": {
+                                "PublicIp": "18.237.136.192", 
+                                "PublicDnsName": "ec2-18-237-136-192.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2c"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-06a6df15b9925948d", 
+                                "AttachTime": "2019-02-11T08:45:24.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-AppsHomepageUI", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-07c430d77f7818e45", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-54-148-75-125.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-01-31T18:02:22.000Z", 
+                    "PublicIpAddress": "54.148.75.125", 
+                    "PrivateIpAddress": "172.31.35.102", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0839613f5c2b3d43b", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-35-102.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-1ab3a56d", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:43:75:13:68:7e", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "", 
+                            "NetworkInterfaceId": "eni-0ed4b952d6f7fdb67", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-35-102.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.35.102", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "54.148.75.125", 
+                                        "PublicDnsName": "ec2-54-148-75-125.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "734677054079"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-35-102.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-05f2e3f9adc8b0c72", 
+                                "AttachTime": "2018-11-29T13:12:02.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.35.102", 
+                            "SubnetId": "subnet-1ab3a56d", 
+                            "Association": {
+                                "PublicIp": "54.148.75.125", 
+                                "PublicDnsName": "ec2-54-148-75-125.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "734677054079"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-093448ee8ecd2fe99", 
+                                "AttachTime": "2018-11-29T13:12:05.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "Microservice-Gateway", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-08ad9be85c48ebdc5", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-34-211-132-134.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-02-01T11:41:07.000Z", 
+                    "PublicIpAddress": "34.211.132.134", 
+                    "PrivateIpAddress": "172.31.33.45", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-07a8df0c2e7a2ae6b", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-33-45.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-1ab3a56d", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:40:59:5f:91:fe", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "", 
+                            "NetworkInterfaceId": "eni-077247dea54eb7ff7", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-33-45.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.33.45", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "34.211.132.134", 
+                                        "PublicDnsName": "ec2-34-211-132-134.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "734677054079"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-33-45.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-052f43e0e9cbe6975", 
+                                "AttachTime": "2019-01-03T06:41:27.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.33.45", 
+                            "SubnetId": "subnet-1ab3a56d", 
+                            "Association": {
+                                "PublicIp": "34.211.132.134", 
+                                "PublicDnsName": "ec2-34-211-132-134.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "734677054079"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-0c047d0561cc78a1d", 
+                                "AttachTime": "2019-01-03T06:41:28.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-MQCStatusApi", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-0cdccddaee2f3da1d", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-52-43-126-42.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-01-31T18:02:22.000Z", 
+                    "PublicIpAddress": "52.43.126.42", 
+                    "PrivateIpAddress": "172.31.36.62", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 1, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0b4cfe60513f4a624", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-36-62.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }, 
+                        {
+                            "GroupName": "ssh_security_grp", 
+                            "GroupId": "sg-c5f648a2"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-1ab3a56d", 
+                    "InstanceType": "t2.small", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:f2:08:f7:f3:fc", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "", 
+                            "NetworkInterfaceId": "eni-0fa3964595078c483", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-36-62.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.36.62", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "52.43.126.42", 
+                                        "PublicDnsName": "ec2-52-43-126-42.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "734677054079"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-36-62.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-067a08c208032c88b", 
+                                "AttachTime": "2018-11-29T11:08:55.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }, 
+                                {
+                                    "GroupName": "ssh_security_grp", 
+                                    "GroupId": "sg-c5f648a2"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.36.62", 
+                            "SubnetId": "subnet-1ab3a56d", 
+                            "Association": {
+                                "PublicIp": "52.43.126.42", 
+                                "PublicDnsName": "ec2-52-43-126-42.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "734677054079"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-09a7d0147bb11c796", 
+                                "AttachTime": "2018-11-29T11:08:55.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-Discovery", 
+                            "Key": "Name"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-08e19771ad8648691", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-34-211-28-190.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-02-26T10:20:41.000Z", 
+                    "PublicIpAddress": "34.211.28.190", 
+                    "PrivateIpAddress": "172.31.6.162", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-04a0308c5382a03db", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-6-162.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-c3406c9a", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "0a:ac:61:c9:de:04", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "Primary network interface", 
+                            "NetworkInterfaceId": "eni-0e084a81115c1cfec", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-6-162.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.6.162", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "34.211.28.190", 
+                                        "PublicDnsName": "ec2-34-211-28-190.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-6-162.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-0e82312ebefb504bf", 
+                                "AttachTime": "2019-02-26T10:20:41.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.6.162", 
+                            "SubnetId": "subnet-c3406c9a", 
+                            "Association": {
+                                "PublicIp": "34.211.28.190", 
+                                "PublicDnsName": "ec2-34-211-28-190.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2c"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-0e021cf0eaf059589", 
+                                "AttachTime": "2019-02-26T10:20:44.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "Microservice-DeepMaps", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-035c0948232dc8456", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-18-236-0-32.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": true, 
+                    "LaunchTime": "2018-11-09T08:53:25.000Z", 
+                    "PublicIpAddress": "18.236.0.32", 
+                    "PrivateIpAddress": "172.31.41.23", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 1, 
+                        "ThreadsPerCore": 2
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-055ebee85acfc391f", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-0bbe6b35405ecebdb", 
+                    "PrivateDnsName": "ip-172-31-41-23.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "qa_build", 
+                            "GroupId": "sg-5b25b921"
+                        }, 
+                        {
+                            "GroupName": "test_group", 
+                            "GroupId": "sg-046c3a6f35117177c"
+                        }, 
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }, 
+                        {
+                            "GroupName": "ssh_security_grp", 
+                            "GroupId": "sg-c5f648a2"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-1ab3a56d", 
+                    "InstanceType": "m5.large", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:b9:fd:f4:74:b0", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "", 
+                            "NetworkInterfaceId": "eni-0093b66f90924f532", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-41-23.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.41.23", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "18.236.0.32", 
+                                        "PublicDnsName": "ec2-18-236-0-32.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "734677054079"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-41-23.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-06a9b6cadc37a447e", 
+                                "AttachTime": "2018-09-26T06:44:38.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "qa_build", 
+                                    "GroupId": "sg-5b25b921"
+                                }, 
+                                {
+                                    "GroupName": "test_group", 
+                                    "GroupId": "sg-046c3a6f35117177c"
+                                }, 
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }, 
+                                {
+                                    "GroupName": "ssh_security_grp", 
+                                    "GroupId": "sg-c5f648a2"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.41.23", 
+                            "SubnetId": "subnet-1ab3a56d", 
+                            "Association": {
+                                "PublicIp": "18.236.0.32", 
+                                "PublicDnsName": "ec2-18-236-0-32.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "734677054079"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-061928cc262e197e4", 
+                                "AttachTime": "2018-09-26T06:44:39.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "IamInstanceProfile": {
+                        "Id": "AIPAITXX4HR6J6Z7EIYJ4", 
+                        "Arn": "arn:aws:iam::734677054079:instance-profile/EC2-CloudWatch-DiskMetricPush"
+                    }, 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "QA_Riser", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-08e8553bb26f6e6b7", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-52-26-74-32.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-01-31T18:02:22.000Z", 
+                    "PublicIpAddress": "52.26.74.32", 
+                    "PrivateIpAddress": "172.31.5.20", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0e1f75548b83a3162", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-5-20.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-c3406c9a", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "0a:e1:14:ce:4e:c2", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "", 
+                            "NetworkInterfaceId": "eni-038880279747a4304", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-5-20.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.5.20", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "52.26.74.32", 
+                                        "PublicDnsName": "ec2-52-26-74-32.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-5-20.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-06f17ff6b718c3cec", 
+                                "AttachTime": "2018-12-06T13:52:49.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.5.20", 
+                            "SubnetId": "subnet-c3406c9a", 
+                            "Association": {
+                                "PublicIp": "52.26.74.32", 
+                                "PublicDnsName": "ec2-52-26-74-32.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2c"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-0968b9d1c83a0d3bc", 
+                                "AttachTime": "2018-12-06T13:52:50.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-RiserUi", 
+                            "Key": "Name"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-03fe89ea3e0ae23fa", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-34-222-70-53.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-02-13T12:31:52.000Z", 
+                    "PublicIpAddress": "34.222.70.53", 
+                    "PrivateIpAddress": "172.31.11.174", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0b4a5a9b23de27add", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-11-174.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-c3406c9a", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "0a:4f:fb:5f:20:58", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "Primary network interface", 
+                            "NetworkInterfaceId": "eni-0cf65716a7c3ef906", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-11-174.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.11.174", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "34.222.70.53", 
+                                        "PublicDnsName": "ec2-34-222-70-53.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-11-174.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-01d77ceef77177972", 
+                                "AttachTime": "2019-02-13T12:31:52.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.11.174", 
+                            "SubnetId": "subnet-c3406c9a", 
+                            "Association": {
+                                "PublicIp": "34.222.70.53", 
+                                "PublicDnsName": "ec2-34-222-70-53.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2c"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-0d98096a72b04aa6e", 
+                                "AttachTime": "2019-02-13T12:31:53.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "Microservice-LandingUI", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-097e48cd639419a0a", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-34-211-234-157.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-02-12T09:10:58.000Z", 
+                    "PublicIpAddress": "34.211.234.157", 
+                    "PrivateIpAddress": "172.31.21.54", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 4, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-01981d85f7a6c720a", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-0e32ec5bc225539f5", 
+                    "PrivateDnsName": "ip-172-31-21-54.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "qa_build", 
+                            "GroupId": "sg-5b25b921"
+                        }, 
+                        {
+                            "GroupName": "test_group", 
+                            "GroupId": "sg-046c3a6f35117177c"
+                        }, 
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }, 
+                        {
+                            "GroupName": "ssh_security_grp", 
+                            "GroupId": "sg-c5f648a2"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-0428d560", 
+                    "InstanceType": "t2.xlarge", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "02:ed:d6:b7:c1:36", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "", 
+                            "NetworkInterfaceId": "eni-0293e11ef6f22040d", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-21-54.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.21.54", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "34.211.234.157", 
+                                        "PublicDnsName": "ec2-34-211-234-157.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "734677054079"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-21-54.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-01f4a597d21820d91", 
+                                "AttachTime": "2018-11-14T10:19:05.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "qa_build", 
+                                    "GroupId": "sg-5b25b921"
+                                }, 
+                                {
+                                    "GroupName": "test_group", 
+                                    "GroupId": "sg-046c3a6f35117177c"
+                                }, 
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }, 
+                                {
+                                    "GroupName": "ssh_security_grp", 
+                                    "GroupId": "sg-c5f648a2"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.21.54", 
+                            "SubnetId": "subnet-0428d560", 
+                            "Association": {
+                                "PublicIp": "34.211.234.157", 
+                                "PublicDnsName": "ec2-34-211-234-157.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "734677054079"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2b"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-0a15d6f54a34ddad0", 
+                                "AttachTime": "2018-11-14T10:19:06.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-CICD", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-0cabf109c9126695a", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-54-202-110-244.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-02-08T09:55:19.000Z", 
+                    "PublicIpAddress": "54.202.110.244", 
+                    "PrivateIpAddress": "172.31.10.51", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0a2e78a8164e8f8a2", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-10-51.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-c3406c9a", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "0a:d1:c4:e0:f7:6a", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "Primary network interface", 
+                            "NetworkInterfaceId": "eni-0af1e3d8ae3cf8f6a", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-10-51.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.10.51", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "54.202.110.244", 
+                                        "PublicDnsName": "ec2-54-202-110-244.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-10-51.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-0d2a71874501f64bc", 
+                                "AttachTime": "2019-02-08T09:55:19.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.10.51", 
+                            "SubnetId": "subnet-c3406c9a", 
+                            "Association": {
+                                "PublicIp": "54.202.110.244", 
+                                "PublicDnsName": "ec2-54-202-110-244.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2c"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-092b8ed87e36c0029", 
+                                "AttachTime": "2019-02-08T09:55:19.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-MQCStatusUI", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-059ace36cb97c0e54", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-50-112-235-229.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-02-01T13:46:21.000Z", 
+                    "PublicIpAddress": "50.112.235.229", 
+                    "PrivateIpAddress": "172.31.45.138", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-035d5c332a555102e", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-45-138.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-1ab3a56d", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "06:7d:65:c9:fe:d8", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "Primary network interface", 
+                            "NetworkInterfaceId": "eni-0f8bad221f0f578e6", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-45-138.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.45.138", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "50.112.235.229", 
+                                        "PublicDnsName": "ec2-50-112-235-229.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "734677054079"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-45-138.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-02031b01f9ab3f382", 
+                                "AttachTime": "2019-02-01T13:46:21.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.45.138", 
+                            "SubnetId": "subnet-1ab3a56d", 
+                            "Association": {
+                                "PublicIp": "50.112.235.229", 
+                                "PublicDnsName": "ec2-50-112-235-229.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "734677054079"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2a"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-006afae3fb11475de", 
+                                "AttachTime": "2019-02-01T13:46:21.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-Secure", 
+                            "Key": "Name"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-09716f2d49f16f1e0", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-35-166-90-148.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-02-15T08:59:14.000Z", 
+                    "PublicIpAddress": "35.166.90.148", 
+                    "PrivateIpAddress": "172.31.11.239", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0fe58500b010a9fe6", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-11-239.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-c3406c9a", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "0a:23:44:d5:26:c0", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "Primary network interface", 
+                            "NetworkInterfaceId": "eni-05bd68e0f1ae5647e", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-11-239.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.11.239", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "35.166.90.148", 
+                                        "PublicDnsName": "ec2-35-166-90-148.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "734677054079"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-11-239.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-0da7c5a08623c0277", 
+                                "AttachTime": "2019-02-15T08:59:14.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.11.239", 
+                            "SubnetId": "subnet-c3406c9a", 
+                            "Association": {
+                                "PublicIp": "35.166.90.148", 
+                                "PublicDnsName": "ec2-35-166-90-148.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "734677054079"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2c"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-00176430e130202ff", 
+                                "AttachTime": "2019-02-15T08:59:15.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "Microservice-DeepApi", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }, 
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-05f6c33ece7c6e006", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }, 
+        {
+            "Instances": [
+                {
+                    "Monitoring": {
+                        "State": "disabled"
+                    }, 
+                    "PublicDnsName": "ec2-54-186-49-167.us-west-2.compute.amazonaws.com", 
+                    "State": {
+                        "Code": 16, 
+                        "Name": "running"
+                    }, 
+                    "EbsOptimized": false, 
+                    "LaunchTime": "2019-03-01T09:29:43.000Z", 
+                    "PublicIpAddress": "54.186.49.167", 
+                    "PrivateIpAddress": "172.31.7.200", 
+                    "ProductCodes": [], 
+                    "VpcId": "vpc-f1fd1695", 
+                    "CpuOptions": {
+                        "CoreCount": 2, 
+                        "ThreadsPerCore": 1
+                    }, 
+                    "StateTransitionReason": "", 
+                    "InstanceId": "i-0e81c7a0e4d9396ec", 
+                    "EnaSupport": true, 
+                    "ImageId": "ami-076e276d85f524150", 
+                    "PrivateDnsName": "ip-172-31-7-200.us-west-2.compute.internal", 
+                    "KeyName": "bmtprod", 
+                    "SecurityGroups": [
+                        {
+                            "GroupName": "Microservice-Sg", 
+                            "GroupId": "sg-0a17947395c0fcddb"
+                        }
+                    ], 
+                    "ClientToken": "", 
+                    "SubnetId": "subnet-c3406c9a", 
+                    "InstanceType": "t2.medium", 
+                    "NetworkInterfaces": [
+                        {
+                            "Status": "in-use", 
+                            "MacAddress": "0a:b2:c7:03:ed:50", 
+                            "SourceDestCheck": true, 
+                            "VpcId": "vpc-f1fd1695", 
+                            "Description": "Primary network interface", 
+                            "NetworkInterfaceId": "eni-03c2196e4b04c166e", 
+                            "PrivateIpAddresses": [
+                                {
+                                    "PrivateDnsName": "ip-172-31-7-200.us-west-2.compute.internal", 
+                                    "PrivateIpAddress": "172.31.7.200", 
+                                    "Primary": true, 
+                                    "Association": {
+                                        "PublicIp": "54.186.49.167", 
+                                        "PublicDnsName": "ec2-54-186-49-167.us-west-2.compute.amazonaws.com", 
+                                        "IpOwnerId": "amazon"
+                                    }
+                                }
+                            ], 
+                            "PrivateDnsName": "ip-172-31-7-200.us-west-2.compute.internal", 
+                            "Attachment": {
+                                "Status": "attached", 
+                                "DeviceIndex": 0, 
+                                "DeleteOnTermination": true, 
+                                "AttachmentId": "eni-attach-095455ce54b28da13", 
+                                "AttachTime": "2019-03-01T09:29:43.000Z"
+                            }, 
+                            "Groups": [
+                                {
+                                    "GroupName": "Microservice-Sg", 
+                                    "GroupId": "sg-0a17947395c0fcddb"
+                                }
+                            ], 
+                            "Ipv6Addresses": [], 
+                            "OwnerId": "734677054079", 
+                            "PrivateIpAddress": "172.31.7.200", 
+                            "SubnetId": "subnet-c3406c9a", 
+                            "Association": {
+                                "PublicIp": "54.186.49.167", 
+                                "PublicDnsName": "ec2-54-186-49-167.us-west-2.compute.amazonaws.com", 
+                                "IpOwnerId": "amazon"
+                            }
+                        }
+                    ], 
+                    "SourceDestCheck": true, 
+                    "Placement": {
+                        "Tenancy": "default", 
+                        "GroupName": "", 
+                        "AvailabilityZone": "us-west-2c"
+                    }, 
+                    "Hypervisor": "xen", 
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1", 
+                            "Ebs": {
+                                "Status": "attached", 
+                                "DeleteOnTermination": true, 
+                                "VolumeId": "vol-004f9260e7a165a89", 
+                                "AttachTime": "2019-03-01T09:29:44.000Z"
+                            }
+                        }
+                    ], 
+                    "Architecture": "x86_64", 
+                    "RootDeviceType": "ebs", 
+                    "RootDeviceName": "/dev/sda1", 
+                    "VirtualizationType": "hvm", 
+                    "Tags": [
+                        {
+                            "Value": "TBD", 
+                            "Key": "Required Reservation"
+                        }, 
+                        {
+                            "Value": "Microservice-Reserved", 
+                            "Key": "Name"
+                        }, 
+                        {
+                            "Value": "On Demand", 
+                            "Key": "Current Reservation"
+                        }, 
+                        {
+                            "Value": "Microservices", 
+                            "Key": "Platform"
+                        }
+                    ], 
+                    "AmiLaunchIndex": 0
+                }
+            ], 
+            "ReservationId": "r-0e56ce1714f1ea0a9", 
+            "Groups": [], 
+            "OwnerId": "734677054079"
+        }
+    ]
+}
+{
+    "Reservations": []
+}
